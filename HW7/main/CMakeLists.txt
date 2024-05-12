@@ -1,10 +1,11 @@
 add_executable(main
         main.c
         ssd1306.c
+        oled.c
         )
 
 # pull in common dependencies
-target_link_libraries(main pico_stdlib hardware_i2c hardware_adc)
+target_link_libraries(main pico_stdlib hardware_i2c hardware_uart)
 
 # create map/bin/hex file etc.
 pico_add_extra_outputs(main)

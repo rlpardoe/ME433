@@ -3,5 +3,9 @@
     "PICO_SDK_PATH": "C:/Program Files/Raspberry Pi/Pico SDK v1.5.1/pico-sdk"
   },
   "cmake.configureOnOpen": true,
-  "C_Cpp_Runner.msvcBatchPath": ""
+  "C_Cpp_Runner.msvcBatchPath": "",
+  "files.associations": {
+    "stdio.h": "c",
+    "ssd1306.h": "c"
+  }
 }
