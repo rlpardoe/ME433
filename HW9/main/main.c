@@ -24,7 +24,7 @@
 #define UART_RX_PIN 1
 
 static int chars_rxed = 0;
-char checked_char;
+//char checked_char;
 char message[100];
 
 // RX interrupt handler
@@ -33,20 +33,20 @@ void on_uart_rx() {
         uint8_t ch = uart_getc(UART_ID);
         //sscanf(&checked_char, "%c", ch);
         //uart_putc(UART_ID, ch);
-        printf("%c",ch);
         if ((ch == 0)|(ch == 13)){ // null char or carrige return
-            /*uart_puts(UART_ID, message);
+            printf("From PiZero: %s\r\n",message);
+            //uart_puts(UART_ID, message);
             //uart_putc(UART_ID, '\r');
             //uart_putc(UART_ID, '\n');
             for (int i = 0; i<=chars_rxed; i++){ // clear old message
                 message[i] = '\0'; //if next message is shorter, when overwritten will leave \0 at end of message
             }
             chars_rxed = 0;
-            */
+            
         }
         else{
-            //message[chars_rxed] = ch;
-            //chars_rxed++;
+            message[chars_rxed] = ch;
+            chars_rxed++;
         }
         
     }
@@ -106,6 +106,7 @@ int main() {
     //uart_puts(UART_ID, "\nHello, uart interrupts\r\n");
     printf("\nHello, uart interrupts\r\n");
     char message[100];
+    int value;
     //char smessage[100;]
     while (1){
         /*
@@ -113,10 +114,10 @@ int main() {
         sleep_ms(200);
         gpio_put(LED_PIN, 0);
         */
-        scanf("%s", message);
+        scanf("%i", &value);
         //sscanf(message,"%d", &smessage);
-        printf(message);
-        printf("\r\n");
+        sprintf(message,"%d",value);
+        printf("Comp Sending: %i\r\n",value);
         uart_puts(UART_ID, message);}
 }
 
