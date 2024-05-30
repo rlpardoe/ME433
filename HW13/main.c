@@ -29,8 +29,13 @@
 
 #include "bsp/board.h"
 #include "tusb.h"
+#include "imu_helpers.h"
+#include "hardware/i2c.h"
+#include "pico/binary_info.h"
+#include "pico/stdlib.h"
 
 #include "usb_descriptors.h"
+
 
 //--------------------------------------------------------------------+
 // MACRO CONSTANT TYPEDEF PROTYPES
@@ -55,15 +60,23 @@ void hid_task(void);
 /*------------- MAIN -------------*/
 int main(void)
 {
+  stdio_init_all();
+  start_i2c();
   board_init();
   tusb_init();
+  int accel[3];
+  int rot[3];
+  int temp;
+  char raw_in[14];
+  char I_am = start_IMU();
+
 
   while (1)
   {
     tud_task(); // tinyusb device task
     led_blinking_task();
-
     hid_task();
+    //send_hid_report(uint8_t report_id, uint32_t btn);
   }
 }
 
